@@ -1,6 +1,6 @@
 {
   "name": "tarjan",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Tarjan-Lengauer dominator search algorithm",
   "main": "lib/tarjan.js",
   "scripts": {
