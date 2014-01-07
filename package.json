@@ -1,0 +1,27 @@
+{
+  "name": "tarjan",
+  "version": "0.0.0",
+  "description": "Tarjan-Lengauer dominator search algorithm",
+  "main": "lib/tarjan.js",
+  "scripts": {
+    "test": "mocha --reporter spec test/*-test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:indutny/tarjan"
+  },
+  "keywords": [
+    "dominator",
+    "cfg",
+    "tarjan"
+  ],
+  "author": "Fedor Indutny <fedor@indutny.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/indutny/tarjan/issues"
+  },
+  "homepage": "https://github.com/indutny/tarjan",
+  "devDependencies": {
+    "mocha": "~1.16.2"
+  }
+}
