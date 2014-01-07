@@ -3,17 +3,17 @@
 ## API
 
 ```javascript
-// List of all nodes with their children in a flow graph
+// List of all nodes with their successors in a flow graph
 // (i.e. a flow graph itself)
 var nodes = [
-  { children: [...] },
-  { children: [...] }
+  { successors: [...] },
+  { successors: [...] }
 ];
 
-var tarjan = require('tarjan').create('children', 'idom');
+var tarjan = require('tarjan').create();
 tarjan(nodes);
 
-console.log(nodes[1].idom);
+console.log(nodes[1].parent, nodes[1].children);
 ```
 
 #### LICENSE

@@ -4,8 +4,10 @@ var tarjan = require('../');
 describe('Tarjan algorithm', function() {
   function Node(id) {
     this.id = id;
-    this.children = [];
-    this.idom = null;
+    this.successors = [];
+
+    this.parent = null;
+    this.children = null;
   }
   it('should support example from paper', function() {
     var R = new Node('R');
@@ -22,34 +24,34 @@ describe('Tarjan algorithm', function() {
     var K = new Node('K');
     var L = new Node('L');
 
-    R.children.push(C, B, A);
-    C.children.push(F, G);
-    B.children.push(E, A, D);
-    F.children.push(I);
-    G.children.push(I, J);
-    E.children.push(H);
-    A.children.push(D);
-    I.children.push(K);
-    J.children.push(I);
-    H.children.push(K, E);
-    D.children.push(L);
-    K.children.push(R, I);
-    L.children.push(H);
+    R.successors.push(C, B, A);
+    C.successors.push(F, G);
+    B.successors.push(E, A, D);
+    F.successors.push(I);
+    G.successors.push(I, J);
+    E.successors.push(H);
+    A.successors.push(D);
+    I.successors.push(K);
+    J.successors.push(I);
+    H.successors.push(K, E);
+    D.successors.push(L);
+    K.successors.push(R, I);
+    L.successors.push(H);
 
-    var run = tarjan.create('children', 'idom');
+    var run = tarjan.create();
     run([ R, A, B, C, D, E, F, G, H, I, J, K, L ]);
 
-    assert.equal(A.idom.id, 'R');
-    assert.equal(B.idom.id, 'R');
-    assert.equal(C.idom.id, 'R');
-    assert.equal(D.idom.id, 'R');
-    assert.equal(E.idom.id, 'R');
-    assert.equal(F.idom.id, 'C');
-    assert.equal(G.idom.id, 'C');
-    assert.equal(H.idom.id, 'R');
-    assert.equal(I.idom.id, 'R');
-    assert.equal(J.idom.id, 'G');
-    assert.equal(K.idom.id, 'R');
-    assert.equal(L.idom.id, 'D');
+    assert.equal(A.parent.id, 'R');
+    assert.equal(B.parent.id, 'R');
+    assert.equal(C.parent.id, 'R');
+    assert.equal(D.parent.id, 'R');
+    assert.equal(E.parent.id, 'R');
+    assert.equal(F.parent.id, 'C');
+    assert.equal(G.parent.id, 'C');
+    assert.equal(H.parent.id, 'R');
+    assert.equal(I.parent.id, 'R');
+    assert.equal(J.parent.id, 'G');
+    assert.equal(K.parent.id, 'R');
+    assert.equal(L.parent.id, 'D');
   });
 });
