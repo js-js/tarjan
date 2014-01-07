@@ -7,6 +7,7 @@ function Node(id) {
 
   this.parent = null;
   this.children = null;
+  this.frontier = null;
 }
 
 function parse(root, src) {
@@ -40,18 +41,30 @@ function parse(root, src) {
   }).sort(function(a, b) {
     if (a.id === root)
       return -1;
-    return 1;
+    if (b.id === root)
+      return 1;
+    return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
   });
 }
 
 function stringify(list) {
-  return list.filter(function(item) {
+  var idom = list.filter(function(item) {
     return item.children && item.children.length !== 0;
   }).map(function(item) {
-    return item.id + ' -> ' + item.children.map(function(item) {
+    return '  ' + item.id + ' -> ' + item.children.map(function(item) {
       return item.id;
     }).sort().join(', ');
   }).join('\n');
+
+  var df = list.filter(function(item) {
+    return item.frontier && item.frontier.length !== 0;
+  }).map(function(item) {
+    return '  ' + item.id + ' -> ' + item.frontier.map(function(item) {
+      return item.id;
+    }).sort().join(', ');
+  }).join('\n');
+
+  return 'IDOM:\n' + idom + '\nDF:\n' + df;
 }
 
 exports.test = function test(root, input, expected) {
@@ -63,11 +76,14 @@ exports.test = function test(root, input, expected) {
   var out = stringify(list);
   var exp = expected.toString()
                     .replace(/^function.*{\/\*|\*\/}$/g, '');
-  exp = exp.split(/\r\n|\r|\n/g).map(function(line) {
-    return line.replace(/^\s*/, '');
-  }).filter(function(line) {
-    return line;
-  }).join('\n');
 
-  assert.equal(out, exp);
+  function strip(val) {
+    return val.split(/\r\n|\r|\n/g).map(function(line) {
+      return line.replace(/^\s*/, '');
+    }).filter(function(line) {
+      return line;
+    }).join('\n');
+  }
+
+  assert.equal(strip(out), strip(exp));
 }
