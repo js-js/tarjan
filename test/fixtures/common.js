@@ -52,7 +52,7 @@ function stringify(list) {
     return item.children && item.children.length !== 0;
   }).map(function(item) {
     return '  ' + item.id + ' -> ' + item.children.map(function(item) {
-      return item.id;
+      return item;
     }).sort().join(', ');
   }).join('\n');
 
@@ -60,7 +60,7 @@ function stringify(list) {
     return item.frontier && item.frontier.length !== 0;
   }).map(function(item) {
     return '  ' + item.id + ' -> ' + item.frontier.map(function(item) {
-      return item.id;
+      return item;
     }).sort().join(', ');
   }).join('\n');
 
