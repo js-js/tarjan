@@ -32,7 +32,7 @@ function parse(root, src) {
     var successors = match[2].split(/\s*,\s*/g).map(toNode);
 
     successors.forEach(function(succ) {
-      parent.successors.push(succ);
+      parent.successors.push(succ.id);
     });
   });
 

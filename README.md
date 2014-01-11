@@ -6,8 +6,8 @@
 // List of all nodes with their successors in a flow graph
 // (i.e. a flow graph itself)
 var nodes = [
-  { successors: [...] },
-  { successors: [...] }
+  { id: 'A', successors: [ 'B' ] },
+  { id: 'B', successors: [] }
 ];
 
 var tarjan = require('tarjan').create();
