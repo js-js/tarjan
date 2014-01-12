@@ -24,6 +24,7 @@ describe('Tarjan algorithm', function() {
         G -> J
 
       DF:
+        R -> R
         A -> D
         B -> A, D, E
         C -> I
@@ -68,43 +69,14 @@ describe('Tarjan algorithm', function() {
         1 -> Exit
         11 -> 2, 9, Exit
         12 -> 2, Exit
-        2 -> Exit
+        2 -> 2, Exit
         3 -> 8
         4 -> 6
         5 -> 6
         6 -> 8
         7 -> 8
         8 -> 2, Exit
-        9 -> 2, Exit
-    */});
-  });
-
-  it('should support regression from ssa.js', function() {
-    common.test('B0', function() {/*
-       B0 -> B1
-       B1 -> B2, B4
-       B2 -> B5
-       B3 -> B1
-       B4
-       B5 -> B6, B8
-       B6 -> B7
-       B7 -> B5
-       B8 -> B3
-    */}, function() {/*
-      IDOM:
-        B0 -> B1
-        B1 -> B2, B4
-        B2 -> B5
-        B5 -> B6, B8
-        B6 -> B7
-        B8 -> B3
-      DF:
-        B2 -> B1
-        B3 -> B1
-        B5 -> B1
-        B6 -> B5
-        B7 -> B5
-        B8 -> B1
+        9 -> 2, 9, Exit
     */});
   });
 });
