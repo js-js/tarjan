@@ -1,9 +1,11 @@
 # Tarjan-Languer Fast Algorithm for Finding Dominators in a Flow Graph
+[![Build Status](https://secure.travis-ci.org/indutny/tarjan.png)](http://travis-ci.org/indutny/tarjan)
+[![NPM version](https://badge.fury.io/js/tarjan.svg)](http://badge.fury.io/js/tarjan)
 
 ## API
 
 ```javascript
-var pipeline = require('json-pipeline').create('dominance');
+var pipeline = require('tarjan').create('dominance');
 
 // Initialize pipeline
 // ...
