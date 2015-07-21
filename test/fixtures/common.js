@@ -1,25 +1,26 @@
 var assert = require('assert');
 var tarjan = require('../../');
-
-function Node(id) {
-  this.id = id;
-  this.successors = [];
-
-  this.parent = null;
-  this.children = null;
-  this.frontier = null;
-}
+var pipeline = require('json-pipeline');
 
 function parse(root, src) {
+  var p = pipeline.create('dominance');
+
   src = src.toString()
            .replace(/^function.*{\/\*|\*\/}$/g, '');
 
   var lines = src.split(/\r\n|\r|\n/g);
   var nodes = {};
 
+  // Create the root first
+  toNode(root);
+
   function toNode(id) {
-    if (!nodes.hasOwnProperty(id))
-      nodes[id] = new Node(id);
+    if (!nodes.hasOwnProperty(id)) {
+      nodes[id] = p.block();
+
+      // Just for debugging
+      nodes[id].label = id;
+    }
     return nodes[id];
   }
 
@@ -32,48 +33,42 @@ function parse(root, src) {
     var successors = match[2].split(/\s*,\s*/g).map(toNode);
 
     successors.forEach(function(succ) {
-      parent.successors.push(succ.id);
+      parent.jump(succ);
     });
   });
 
-  return Object.keys(nodes).map(function(id) {
-    return nodes[id];
-  }).sort(function(a, b) {
-    if (a.id === root)
-      return -1;
-    if (b.id === root)
-      return 1;
-    return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
-  });
+  return p;
 }
 
-function stringify(list) {
+function stringify(p) {
+  var list = p.blocks;
+
   var idom = list.filter(function(item) {
     return item.children && item.children.length !== 0;
   }).map(function(item) {
-    return '  ' + item.id + ' -> ' + item.children.map(function(item) {
-      return item;
+    return '  ' + item.label + ' -> ' + item.children.map(function(item) {
+      return item.label;
     }).sort().join(', ');
   }).join('\n');
 
   var df = list.filter(function(item) {
     return item.frontier && item.frontier.length !== 0;
   }).map(function(item) {
-    return '  ' + item.id + ' -> ' + item.frontier.map(function(item) {
+    return '  ' + item.label + ' -> ' + item.frontier.map(function(item) {
       return item;
     }).sort().join(', ');
   }).join('\n');
 
-  return 'IDOM:\n' + idom + '\nDF:\n' + df;
+  return idom;
 }
 
 exports.test = function test(root, input, expected) {
-  var list = parse(root, input);
+  var p = parse(root, input);
 
-  var run = tarjan.create();
-  run(list);
+  var t = tarjan.create(p);
+  t.compute();
 
-  var out = stringify(list);
+  var out = stringify(p);
   var exp = expected.toString()
                     .replace(/^function.*{\/\*|\*\/}$/g, '');
 

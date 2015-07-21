@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/indutny/tarjan",
   "devDependencies": {
+    "json-pipeline": "^1.2.0",
     "mocha": "~1.16.2"
   }
 }

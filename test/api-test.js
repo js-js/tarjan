@@ -17,26 +17,10 @@ describe('Tarjan algorithm', function() {
       K -> R, I
       L -> H
     */}, function() {/*
-      IDOM:
-        R -> A, B, C, D, E, H, I, K
-        C -> F, G
-        D -> L
-        G -> J
-
-      DF:
-        R -> R
-        A -> D
-        B -> A, D, E
-        C -> I
-        D -> H
-        E -> H
-        F -> I
-        G -> I
-        H -> E, K
-        I -> K
-        J -> I
-        K -> I, R
-        L -> H
+      R -> A, B, C, D, E, H, I, K
+      C -> F, G
+      G -> J
+      D -> L
     */});
   });
 
@@ -56,27 +40,13 @@ describe('Tarjan algorithm', function() {
       11 -> 9, 12
       12 -> 2, Exit
     */}, function() {/*
-      IDOM:
-        Entry -> 1, Exit
-        1 -> 2
-        11 -> 12
-        2 -> 3, 7, 8
-        3 -> 4, 5, 6
-        8 -> 9
-        9 -> 10, 11
-
-      DF:
-        1 -> Exit
-        11 -> 2, 9, Exit
-        12 -> 2, Exit
-        2 -> 2, Exit
-        3 -> 8
-        4 -> 6
-        5 -> 6
-        6 -> 8
-        7 -> 8
-        8 -> 2, Exit
-        9 -> 2, 9, Exit
+      Entry -> 1, Exit
+      1 -> 2
+      2 -> 3, 7, 8
+      3 -> 4, 5, 6
+      8 -> 9
+      9 -> 10, 11
+      11 -> 12
     */});
   });
 });
