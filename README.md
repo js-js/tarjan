@@ -3,24 +3,23 @@
 ## API
 
 ```javascript
-// List of all nodes with their successors in a flow graph
-// (i.e. a flow graph itself)
-var nodes = [
-  { id: 'A', successors: [ 'B' ] },
-  { id: 'B', successors: [] }
-];
+var pipeline = require('json-pipeline').create('dominance');
 
-var tarjan = require('tarjan').create();
-tarjan(nodes);
+// Initialize pipeline
+// ...
+// ...
 
-console.log(nodes[1].parent, nodes[1].children);
+var tarjan = require('tarjan').create(pipeline);
+tarjan.compute();
+
+// Use `.parent`/`.children` in pipeline's blocks
 ```
 
 #### LICENSE
 
 This software is licensed under the MIT License.
 
-Copyright Fedor Indutny, 2014.
+Copyright Fedor Indutny, 2015.
 
 Permission is hereby granted, free of charge, to any person obtaining a
 copy of this software and associated documentation files (the

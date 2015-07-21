@@ -4,7 +4,7 @@
   "description": "Tarjan-Lengauer dominator search algorithm",
   "main": "lib/tarjan.js",
   "scripts": {
-    "test": "mocha --reporter spec test/*-test.js"
+    "test": "jscs lib/*.js test/*.js && jshint lib/*.js && mocha --reporter spec test/*-test.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,8 @@
   },
   "homepage": "https://github.com/indutny/tarjan",
   "devDependencies": {
+    "jscs": "^1.13.1",
+    "jshint": "^2.8.0",
     "json-pipeline": "^1.2.0",
     "mocha": "~1.16.2"
   }
